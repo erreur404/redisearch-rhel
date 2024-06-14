@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.8 as build-redis
+FROM registry.access.redhat.com/ubi8/ubi:8.10 as build-redis
 SHELL ["/bin/bash", "-c"]
 
 # Check arguments before running the build
@@ -89,7 +89,7 @@ RUN make build COORD=oss STATIC_LIBSTDCXX=0 GCC=1 CLANG=0 LITE=0 DEBUG=0 TESTS=0
 
 
 ##Assert this will run
-FROM registry.access.redhat.com/ubi8/ubi:8.8 as test
+FROM registry.access.redhat.com/ubi8/ubi:8.10 as test
 WORKDIR /redis
 
 
@@ -116,4 +116,6 @@ COPY cluster/create-folder.sh create-folder.sh
 RUN ./create-folder.sh 6500
 
 COPY cluster/test-redisearch.sh test-redisearch.sh
-CMD [ "./test-redisearch.sh" ]
+#CMD [ "./test-redisearch.sh" ]
+RUN "./test-redisearch.sh"
+COPY cluster/tools/* /redis
