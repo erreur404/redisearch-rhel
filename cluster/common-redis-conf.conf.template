@@ -1,0 +1,25 @@
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+
+requirepass $REDIS_PASS
+masterauth $REDIS_PASS
+
+tls-cert-file ../tls/redis.crt
+tls-key-file ../tls/redis.key
+#tls-ca-cert-dir ../tls/trusted-sources
+tls-ca-cert-file ../tls/trusted-sources/ca.crt
+
+port 0
+tls-cluster yes
+tls-replication yes
+tls-protocols "TLSv1.2"
+
+appendonly yes
+save ""
+
+activerehashing yes
+activedefrag no
+
+loadmodule ../tools/module-oss.so OSS_GLOBAL_PASSWORD $REDIS_PASS
+#loadmodule ../tools/redisearch.so
