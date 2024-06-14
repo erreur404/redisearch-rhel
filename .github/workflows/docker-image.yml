@@ -20,4 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build -t $IMAGE_NAME -f Dockerfile . --build-arg REDIS_VERSION=$REDIS_VERSION --build-arg REDIS_SEARCH_VERSION=$SEARCH_VERSION
+      run: docker build -t "redis-tls-$REDIS_VERSION-search-$SEARCH_VERSION" -f Dockerfile . --build-arg REDIS_VERSION=$REDIS_VERSION --build-arg REDIS_SEARCH_VERSION=$SEARCH_VERSION
