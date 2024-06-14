@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  REDIS_VERSION: "7.2.5"
+  SEARCH_VERSION: "master"
+  IMAGE_NAME: "redis-tls-$REDIS_VERSION-search-$SEARCH_VERSION"
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build -t $IMAGE_NAME -f Dockerfile . --build-arg REDIS_VERSION=$REDIS_VERSION --build-arg REDIS_SEARCH_VERSION=$SEARCH_VERSION
